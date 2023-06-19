@@ -2,7 +2,7 @@ import connectDb from '@/utils/db'
 import { AuthenticatedRequest, verifyToken } from '@/utils/verifyToken'
 import { NextResponse } from 'next/server'
 import protect from '@/utils/protect'
-import { Product } from '@/models/Product'
+import Product from '@/models/Product'
 
 export const POST = connectDb(
   protect(async (req: AuthenticatedRequest) => {
