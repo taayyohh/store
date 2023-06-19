@@ -29,5 +29,6 @@ const productSchema = new Schema<IProduct>({
 })
 
 // Check if the model is already compiled
-export const Product =
-  mongoose.models.Product || model<IProduct>('Product', productSchema)
+const Product = mongoose.models.Product || model<IProduct>('Product', productSchema)
+
+export default Product
