@@ -16,7 +16,7 @@ const ProductPage = ({
   stripeProduct?: Stripe.Product
   succeeded: boolean
 }) => {
-  const { name, description, category, price, quantity, imageUri } = product
+  const { name, description, imageUri } = product
   const stripe = useStripe()
   const elements = useElements()
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
@@ -24,6 +24,7 @@ const ProductPage = ({
   const validationSchema = Yup.object().shape({
     // Existing validation rules ...
     donationAmount: Yup.number()
+      .integer('Please enter a whole number :)')
       .min(1, 'Please enter a donation amount :)')
       .required('Please enter a donation amount :)'),
   })
@@ -74,6 +75,9 @@ const ProductPage = ({
       },
       body: JSON.stringify({ price: Math.round(donationAmount * 100) }),
     })
+    {
+      console.log('r', Math.round(donationAmount * 100))
+    }
     const paymentIntent: Stripe.PaymentIntent = await stripePayment.json()
 
     const { error } = await stripe.confirmPayment({
