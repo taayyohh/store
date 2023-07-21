@@ -14,7 +14,7 @@ interface ProductsListProps {
 const ProductsList: React.FC<ProductsListProps> = ({ initialData }) => {
   const [products, setProducts] = useState<IProduct[]>(initialData.products)
   const [currentPage, setCurrentPage] = useState(1)
-  const perPage = 10
+  const perPage = 1
 
   useEffect(() => {
     if (currentPage === 1) return
@@ -40,10 +40,10 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialData }) => {
 
   return (
     <div>
-      <div className="text-2xl mb-4">Products</div>
-      <div className="flex flex-col">
+      <div className="text-xs uppercase mb-4 border-t pt-2">Products</div>
+      <div className="grid gap-3 grid-cols-3">
         {products.map((product: IProduct) => (
-          <ProductCard key={product._id} name={product.name} price={product.price} />
+          <ProductCard key={product._id} name={product.name} price={product.price} slug={product.slug} />
         ))}
       </div>
 

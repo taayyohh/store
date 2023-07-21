@@ -35,11 +35,11 @@ export const POST = connectDb(async (req: NextRequest) => {
     )
 
     response.cookies.set(LOGIN_COOKIE_NAME, token, {
-      httpOnly: true,
-      sameSite: 'lax', // Set a suitable SameSite attribute value
+      httpOnly: false,
+      // sameSite: 'lax', // Set a suitable SameSite attribute value
       secure: process.env.NODE_ENV === 'production', // Set secure flag for production environment
       path: '/', // Set the cookie path as per your application needs
-      maxAge: 60 * 60, // Set the maximum age of the cookie in seconds (1 hour in this case)
+      // maxAge: 60 * 60, // Set the maximum age of the cookie in seconds (1 hour in this case)
     })
 
     return response

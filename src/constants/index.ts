@@ -3,3 +3,4 @@ export const BASE_URL =
   process.env.NODE_ENV === 'production'
     ? 'https://store.lucid.haus'
     : 'http://localhost:3000'
+export const STRIPE_BASE_URL = 'https://api.stripe.com'

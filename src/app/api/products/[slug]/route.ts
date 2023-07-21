@@ -5,10 +5,10 @@ import { NextResponse } from 'next/server'
 import protect from '@/utils/protect'
 
 export const GET = connectDb(async (req: AuthenticatedRequest) => {
-  const productId = req.nextUrl.searchParams.get('id')
+  const slug = req.nextUrl.pathname.split('/')[3]
 
   try {
-    const product = await Product.findById(productId)
+    const product = await Product.findOne({ slug })
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }

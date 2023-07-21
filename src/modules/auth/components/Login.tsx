@@ -125,7 +125,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ hasAccess }) => {
 
       <button
         type="submit"
-        className="p-3 bg-blue-500 hover:bg-blue-600 text-white rounded focus:outline-none"
+        className="p-3 bg-gray-400 hover:bg-gray-500 text-white rounded focus:outline-none"
       >
         Login
       </button>

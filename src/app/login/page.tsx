@@ -7,7 +7,7 @@ import LogoutButton from '@/modules/auth/components/LogoutButton'
 export default async function Page() {
   const cookieStore = cookies()
   const login = cookieStore.get(LOGIN_COOKIE_NAME)
-  const hasAccess = login ? await isLoggedIn(login) : false
+  const hasAccess = login ? !!(await isLoggedIn(login)) : false
 
   return (
     <>

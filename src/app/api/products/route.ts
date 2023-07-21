@@ -6,13 +6,25 @@ import Product from '@/models/Product'
 
 export const POST = connectDb(
   protect(async (req: AuthenticatedRequest) => {
-    const { name, price } = await req.json()
-
+    const { name, price, quantity, description, category, imageUri, stripeId } =
+      await req.json()
     try {
-      const product = new Product({ name, price })
+      const product = new Product({
+        name,
+        price,
+        quantity,
+        description,
+        category,
+        imageUri,
+        stripeId,
+      })
       await product.save()
-      return NextResponse.json({ error: 'Product created successfully' }, { status: 201 })
+      return NextResponse.json(
+        { message: 'Product created successfully' },
+        { status: 201 }
+      )
     } catch (err) {
+      console.log('err', err)
       return NextResponse.json({ error: 'Error creating product' }, { status: 500 })
     }
   })
