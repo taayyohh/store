@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { IProduct } from '@/models/Product'
 import Pagination from './Pagination'
 import { ProductsResponse } from '@/app/admin/products/page'
-import { BASE_URL } from '@/constants'
 import ProductCard from '@/modules/store/components/ProductCard'
 
 interface ProductsListProps {
@@ -22,7 +21,7 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialData }) => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `${BASE_URL}/api/products?page=${currentPage}&limit=${perPage}`
+          `/api/products?page=${currentPage}&limit=${perPage}`
         )
         const data = await response.json()
         if (response.ok) {
