@@ -5,7 +5,9 @@ import { headers } from 'next/headers'
 const Home = async () => {
   const headersList = headers()
   const referer = headersList.get('referer')
-  const productsData = await fetchProducts(1, 10, referer!)
+  if (!referer) return null
+
+  const productsData = await fetchProducts(1, 10, referer)
 
   return (
     <div>
