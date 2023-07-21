@@ -2,10 +2,12 @@ import ProductPage from '@/modules/store/components/ProductPage'
 import { fetchProduct } from '@/modules/store/utils/fetchProduct'
 import { fetchStripeProduct } from '@/stripe/utils/fetchStripeProduct'
 import { CheckoutForm } from '@/modules/store/components/CheckoutForm'
+import { headers } from 'next/headers'
 
 export default async function Page(context: any) {
-  // console.log('c', context)
-  const product = await fetchProduct(context.params.name)
+  const headersList = headers()
+  const referer = headersList.get('referer')
+  const product = await fetchProduct(context.params.name, referer!)
   const stripeProduct = await fetchStripeProduct(product.product)
 
   return (

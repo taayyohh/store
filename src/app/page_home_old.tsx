@@ -1,8 +1,11 @@
 import { fetchProducts } from '@/modules/store/utils/fetchProducts'
 import ProductList from '@/modules/store/components/ProductList'
+import { headers } from 'next/headers'
 
 const Home = async () => {
-  const productsData = await fetchProducts(1, 10)
+  const headersList = headers()
+  const referer = headersList.get('referer')
+  const productsData = await fetchProducts(1, 10, referer!)
 
   return (
     <div>
