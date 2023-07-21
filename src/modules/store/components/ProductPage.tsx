@@ -5,16 +5,18 @@ import Image from 'next/image'
 import { getIpfsGateway } from '@/utils/getIpfsGetway'
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import Stripe from 'stripe'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import * as Yup from 'yup'
 
 const ProductPage = ({
   product,
   succeeded,
+  referer,
 }: {
   product: IProduct
   stripeProduct?: Stripe.Product
   succeeded: boolean
+  referer: string
 }) => {
   const { name, description, imageUri } = product
   const stripe = useStripe()
@@ -75,9 +77,6 @@ const ProductPage = ({
       },
       body: JSON.stringify({ price: Math.round(donationAmount * 100) }),
     })
-    {
-      console.log('r', Math.round(donationAmount * 100))
-    }
     const paymentIntent: Stripe.PaymentIntent = await stripePayment.json()
 
     const { error } = await stripe.confirmPayment({
@@ -85,7 +84,7 @@ const ProductPage = ({
       elements,
       clientSecret: paymentIntent.client_secret as string,
       confirmParams: {
-        return_url: `/`,
+        return_url: referer,
       },
     })
 

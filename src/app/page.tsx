@@ -19,6 +19,7 @@ export default async function Page(context: any) {
           product={product.product}
           stripeProduct={stripeProduct}
           succeeded={context?.searchParams?.redirect_status === 'succeeded'}
+          referer={referer}
         />
       </CheckoutForm>
     </>
