@@ -6,7 +6,6 @@ import { getIpfsGateway } from '@/utils/getIpfsGetway'
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import Stripe from 'stripe'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { BASE_URL } from '@/constants'
 import * as Yup from 'yup'
 
 const ProductPage = ({
@@ -82,7 +81,7 @@ const ProductPage = ({
       elements,
       clientSecret: paymentIntent.client_secret as string,
       confirmParams: {
-        return_url: `${BASE_URL}`,
+        return_url: `/`,
       },
     })
 

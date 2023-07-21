@@ -4,6 +4,7 @@ import { fetchStripeProduct } from '@/stripe/utils/fetchStripeProduct'
 import { CheckoutForm } from '@/modules/store/components/CheckoutForm'
 
 export default async function Page(context: any) {
+  // console.log('c', context)
   const product = await fetchProduct(context.params.name)
   const stripeProduct = await fetchStripeProduct(product.product)
 
