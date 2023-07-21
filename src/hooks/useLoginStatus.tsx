@@ -8,6 +8,8 @@ const useLoginStatus = (
   cookie: RequestCookie | undefined
 ): boolean | JwtPayload | string => {
   const fetcher = async () => {
+    if (!cookie) return
+
     return await isLoggedIn(cookie)
   }
 
