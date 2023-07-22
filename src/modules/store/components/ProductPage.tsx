@@ -111,7 +111,9 @@ const ProductPage = ({
         }
       >
         <div className={'flex flex-col'}>
-          <div className={'flex rounded-3xl overflow-hidden h-[500px] w-[400px]'}>
+          <div
+            className={'flex rounded-3xl overflow-hidden h-[500px] w:full sm:w-[400px]'}
+          >
             <Image
               src={getIpfsGateway(product?.imageUri || '')}
               alt={`image for ${product?.name}`}
