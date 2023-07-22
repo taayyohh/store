@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <meta name="twitter:creator" content={`@lucidhaus`} />
             <meta name="twitter:site" content={'https://twitter.com/lucidhaus'} />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta property="og:image" content={`${config.BASE_URL}/api/og`} />
+            <meta property="og:image" content={`${config.BASE_URL}api/og`} />
           </NextHead>
 
           <div className={'pt-8'}>{children}</div>
