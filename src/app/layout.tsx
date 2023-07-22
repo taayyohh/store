@@ -8,7 +8,7 @@ import config from '@/constants/config'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Store',
+  title: 'LucidHaus Garden Sessions',
   description: 'LucidHaus is the home of timeless, post-genre black music.',
 }
 
