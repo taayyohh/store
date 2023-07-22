@@ -1,5 +1,5 @@
 const productionConfig = {
-  mongo: process.env.MOGODB_URI,
+  mongo: process.env.MONGODB_URI,
   jwtSecret: process.env.JWT_SECRET,
   nftStoragePublic: process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN,
   stripeSecret: process.env.STRIPE_SECRET,
@@ -7,7 +7,7 @@ const productionConfig = {
 }
 
 const developmentConfig = {
-  mongo: process.env.MOGODB_URI,
+  mongo: process.env.MONGODB_URI_TEST,
   jwtSecret: process.env.JWT_SECRET,
   nftStoragePublic: process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN,
   stripeSecret: process.env.STRIPE_TEST_SECRET,

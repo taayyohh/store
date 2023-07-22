@@ -7,8 +7,6 @@ import { headers } from 'next/headers'
 export default async function Page(context: any) {
   const headersList = headers()
   const referer = headersList.get('referer')
-  if (!referer) return null
-
   const product = await fetchProduct('lucidhaus-garden-session-vi', referer)
   const stripeProduct = await fetchStripeProduct(product.product)
 

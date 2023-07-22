@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import Notification from '@/components/Notification'
 import SingleImageUpload from '@/components/SingleImageUpload'
 import { stripe } from '@/stripe/stripe-sdk'
+import { getIpfsGateway } from '@/utils/getIpfsGetway'
 
 interface ProductFormProps {
   // Add any additional props for the component here
@@ -66,6 +67,9 @@ const ProductForm: React.FC<ProductFormProps> = () => {
     try {
       const stripeProduct = await stripe.products.create({
         name: formData.name,
+        description: formData.description,
+        images: [getIpfsGateway(formData.imageUri)],
+        statement_descriptor: 'LucidHaus'
       })
       const storedProduct = {
         ...formData,
@@ -118,7 +122,7 @@ const ProductForm: React.FC<ProductFormProps> = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border mt-12 px-6 pt-8 pb-20 max-w-xl mx-auto flex flex-col space-y-4 max-h-[70vh] overflow-y-scroll"
+      className="border mt-12 px-6 pt-8 pb-20 max-w-xl mx-auto flex flex-col space-y-4 max-h-[70vh] overflow-y-scroll text-white"
     >
       <h2 className="text-right mb-8 border-b pb-2">Create Product</h2>
       <div className="flex flex-col space-y-1">

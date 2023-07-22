@@ -23,7 +23,7 @@ export const POST = connectDb(async (req: NextRequest) => {
     const user = new User({ username, password: hashedPassword, role })
     await user.save()
 
-    return NextResponse.json({ error: 'User created successfully' }, { status: 201 })
+    return NextResponse.json({ message: 'User created successfully' }, { status: 201 })
   } catch (err) {
     return NextResponse.json({ error: 'Error creating user' }, { status: 500 })
   }

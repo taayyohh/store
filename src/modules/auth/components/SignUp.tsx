@@ -55,6 +55,7 @@ const SignupForm: React.FC<SignupFormProps> = () => {
         setErrorMessage(data.error)
         setShowNotification(true)
       } else {
+        setErrorMessage(data.message)
         console.log('User created successfully:', data)
       }
     } catch (error) {
