@@ -2,14 +2,33 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import NextHead from 'next/head'
 import config from '@/constants/config'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'LucidHaus Garden Sessions',
-  description: 'LucidHaus is the home of timeless, post-genre black music.',
+  openGraph: {
+    title: 'LucidHaus Garden Sessions',
+    description:
+      'Lucidhaus is the home of timeless, post genre black music. The Garden Session is a space to be in community with other artists, creatives, and music lovers who want to see the world change for the better.',
+    url: `${config.BASE_URL}`,
+    siteName: 'LucidHaus Garden Sessions',
+    images: [
+      {
+        url: `${config.BASE_URL}api/og`,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Next.js',
+    description:
+      'Lucidhaus is the home of timeless, post genre black music. The Garden Session is a space to be in community with other artists, creatives, and music lovers who want to see the world change for the better.',
+    creator: '@lucidhaus',
+    images: [`${config.BASE_URL}api/og`],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,27 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Image src={'/header-logo.png'} alt={'Logo'} width="100" height="50" />
             </Link>
           </div>
-
-          <NextHead>
-            <meta charSet="UTF-8" />
-            <title>{`LucidHaus Garden Session`}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta
-              name="description"
-              content={`Lucidhaus is the home of timeless, post genre black music. The Garden Session is a space to be in community with other artists, creatives, and music lovers who want to see the world change for the better`}
-            />
-            <meta property="og:url" content={'https://garden.lucid.haus'} />
-            <meta property="og:title" content={'LucidHaus Garden Session'} />
-            <meta
-              property="og:description"
-              content={`Lucidhaus is the home of timeless, post genre black music. The Garden Session is a space to be in community with other artists, creatives, and music lovers who want to see the world change for the better`}
-            />
-            <meta name="twitter:creator" content={`@lucidhaus`} />
-            <meta name="twitter:site" content={'https://twitter.com/lucidhaus'} />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta property="og:image" content={`https://garden.lucid.haus/api/og`} />
-          </NextHead>
-
           <div className={'pt-8'}>{children}</div>
         </div>
       </body>
