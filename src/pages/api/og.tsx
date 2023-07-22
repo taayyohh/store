@@ -3,6 +3,7 @@ export const config = {
 }
 
 import { ImageResponse } from '@vercel/og'
+const CARD_DIMENSIONS = { width: 1200, height: 630 }
 
 export default function Og() {
   return new ImageResponse(
@@ -29,6 +30,9 @@ export default function Og() {
           alt={'LucidHaus Garden Session'}
         />
       </div>
-    )
+    ),
+    {
+      ...CARD_DIMENSIONS,
+    }
   )
 }
