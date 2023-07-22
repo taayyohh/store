@@ -5,7 +5,7 @@ import { LOGIN_COOKIE_NAME } from '@/constants'
 function requireLogin(routeHandler: (req: NextRequest) => Promise<NextResponse>) {
   return async function protectedRouteHandler(req: NextRequest) {
     if (!(await isLoggedIn(req.cookies.get(LOGIN_COOKIE_NAME)!))) {
-      return NextResponse.redirect('/login') // redirect to login page
+      return NextResponse.redirect('/login') // redirect to login api
     }
     return routeHandler(req)
   }
