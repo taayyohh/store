@@ -5,8 +5,10 @@ import Image from 'next/image'
 import { getIpfsGateway } from '@/utils/getIpfsGetway'
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import Stripe from 'stripe'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import * as Yup from 'yup'
+import { useModal } from '@/hooks/useModal'
+import { Modal } from '@/components/Modal'
 
 const ProductPage = ({
   product,
@@ -37,10 +39,23 @@ const ProductPage = ({
     setDonationAmount(parseFloat(value))
   }
 
+  const { isOpen, closeModal, openModal } = useModal()
+
+  const [formEvent, setFormEvent] = useState<FormEvent | null>(null)
+  const handleAttempt = useCallback(
+    (event: FormEvent) => {
+      setFormEvent(event)
+      openModal()
+    },
+    [openModal]
+  )
+
   if (!stripe || !elements) return null
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+
+    return
 
     // Trigger form validation and wallet collection
     const { error: submitError } = await elements.submit()
@@ -133,7 +148,7 @@ const ProductPage = ({
       </div>
       {(!succeeded && (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleAttempt}
           className={'pt-8 mt-8 border-t w-full sm:w-[600px] mb-12 border p-4 sm:p-12'}
         >
           <div className="flex flex-col space-y-1 pb-4">
@@ -176,6 +191,26 @@ const ProductPage = ({
           who stewards the Good Life Garden and continues to hold down the community!
         </div>
       )}
+      <Modal isOpen={isOpen} closeModal={closeModal}>
+        <h2 className="text-2xl font-bold mb-4">Thank you for donating!</h2>
+        <p className="text-base">
+          100% of the proceeds will go the the artists sharing their crafts with us {'<3'}
+        </p>
+        <button
+          type="button"
+          disabled={!stripe || !elements}
+          className={
+            'h-12 w-full border mt-8 rounded-xl hover:bg-white hover:text-black transition-colors'
+          }
+          onClick={() => handleSubmit(formEvent as FormEvent)}
+        >
+          Confirm Donation
+        </button>
+
+        <button onClick={closeModal} className="mt-4 p-2 text-white underline">
+          No thanks
+        </button>
+      </Modal>
     </div>
   )
 }
