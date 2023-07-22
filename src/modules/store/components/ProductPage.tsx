@@ -13,12 +13,11 @@ const ProductPage = ({
   succeeded,
   referer,
 }: {
-  product: IProduct
+  product: IProduct | undefined
   stripeProduct?: Stripe.Product
   succeeded: boolean
   referer: string | null
 }) => {
-  const { name, description, imageUri } = product
   const stripe = useStripe()
   const elements = useElements()
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
@@ -103,7 +102,7 @@ const ProductPage = ({
   return (
     <div className={'flex flex-col text-white w-full sm:w-[1280px] mx-auto items-center'}>
       <div className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-12 text-center">
-        {name}
+        {product?.name}
       </div>
 
       <div
@@ -114,8 +113,8 @@ const ProductPage = ({
         <div className={'flex flex-col'}>
           <div className={'flex rounded-3xl overflow-hidden h-[500px] w-[400px]'}>
             <Image
-              src={getIpfsGateway(imageUri)}
-              alt={`image for ${name}`}
+              src={getIpfsGateway(product?.imageUri || '')}
+              alt={`image for ${product?.name}`}
               width={400}
               height={500}
               style={{ objectFit: 'contain' }}
@@ -123,7 +122,7 @@ const ProductPage = ({
           </div>
         </div>
         <div className={'flex flex-col'}>
-          <div>{description}</div>
+          <div>{product?.description}</div>
         </div>
       </div>
 

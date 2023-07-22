@@ -7,8 +7,8 @@ export interface ProductResponse {
 export async function fetchProduct(
   slug: string,
   referrer: string | null
-): Promise<ProductResponse> {
-  if (!referrer) return {} as ProductResponse
+): Promise<ProductResponse | undefined> {
+  if (!referrer) return
 
   const response = await fetch(`${referrer}api/products/${slug}`)
   if (!response.ok) {

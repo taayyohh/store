@@ -10,7 +10,7 @@ export interface ProductsResponse {
 export default async function Page() {
   const headersList = headers()
   const referer = headersList.get('referer')
-  const productsData = await fetchProducts(1, 10, referer!)
+  const productsData = await fetchProducts(1, 10, referer)
 
   return (
     <div>

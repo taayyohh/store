@@ -8,13 +8,13 @@ export default async function Page(context: any) {
   const headersList = headers()
   const referer = headersList.get('referer')
   const product = await fetchProduct('lucidhaus-garden-session-vi', referer)
-  const stripeProduct = await fetchStripeProduct(product.product)
+  const stripeProduct = await fetchStripeProduct(product?.product)
 
   return (
     <>
       <CheckoutForm>
         <ProductPage
-          product={product.product}
+          product={product?.product}
           stripeProduct={stripeProduct}
           succeeded={context?.searchParams?.redirect_status === 'succeeded'}
           referer={referer}

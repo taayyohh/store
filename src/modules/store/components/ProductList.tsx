@@ -7,11 +7,11 @@ import { ProductsResponse } from '@/app/admin/products/page'
 import ProductCard from '@/modules/store/components/ProductCard'
 
 interface ProductsListProps {
-  initialData: ProductsResponse
+  initialData: ProductsResponse | undefined
 }
 
 const ProductsList: React.FC<ProductsListProps> = ({ initialData }) => {
-  const [products, setProducts] = useState<IProduct[]>(initialData.products)
+  const [products, setProducts] = useState<IProduct[] | undefined>(initialData?.products)
   const [currentPage, setCurrentPage] = useState(1)
   const perPage = 1
 
@@ -20,9 +20,7 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialData }) => {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          `/api/products?page=${currentPage}&limit=${perPage}`
-        )
+        const response = await fetch(`/api/products?page=${currentPage}&limit=${perPage}`)
         const data = await response.json()
         if (response.ok) {
           setProducts(data.products)
@@ -41,8 +39,13 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialData }) => {
     <div>
       <div className="text-xs uppercase mb-4 border-t pt-2">Products</div>
       <div className="grid gap-3 grid-cols-3">
-        {products.map((product: IProduct) => (
-          <ProductCard key={product._id} name={product.name} price={product.price} slug={product.slug} />
+        {products?.map((product: IProduct) => (
+          <ProductCard
+            key={product._id}
+            name={product.name}
+            price={product.price}
+            slug={product.slug}
+          />
         ))}
       </div>
 
