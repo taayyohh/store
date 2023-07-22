@@ -4,6 +4,7 @@ const productionConfig = {
   nftStoragePublic: process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN,
   stripeSecret: process.env.STRIPE_SECRET,
   stripePublic: process.env.NEXT_PUBLIC_STRIPE_PUBLIC,
+  BASE_URL: process.env.NEXT_PUBLIC_BASE_URL
 }
 
 const developmentConfig = {
@@ -12,6 +13,7 @@ const developmentConfig = {
   nftStoragePublic: process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN,
   stripeSecret: process.env.STRIPE_TEST_SECRET,
   stripePublic: process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLIC,
+  BASE_URL: process.env.NEXT_PUBLIC_BASE_URL_TEST
 }
 
 

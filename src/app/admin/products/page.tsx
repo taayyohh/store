@@ -1,16 +1,18 @@
 import { IProduct } from '@/models/Product'
 import ProductList from '@/modules/store/components/ProductList'
 import { fetchProducts } from '@/modules/store/utils/fetchProducts'
-import { headers } from 'next/headers'
+import config from "@/constants/config";
 
 export interface ProductsResponse {
   products: IProduct[]
 }
 
+async function getProducts(): Promise<ProductsResponse> {
+  return await fetchProducts(1, 10, config.BASE_URL as string)
+}
+
 export default async function Page() {
-  const headersList = headers()
-  const referer = headersList.get('referer')
-  const productsData = await fetchProducts(1, 10, referer)
+  const productsData = await getProducts()
 
   return (
     <div>

@@ -6,10 +6,8 @@ export interface ProductResponse {
 
 export async function fetchProduct(
   slug: string,
-  referrer: string | null
-): Promise<ProductResponse | undefined> {
-  if (!referrer) return
-
+  referrer: string
+): Promise<ProductResponse> {
   const response = await fetch(`${referrer}api/products/${slug}`)
   if (!response.ok) {
     throw new Error('Failed to fetch data')

@@ -14,9 +14,9 @@ const ProductPage = ({
   referer,
 }: {
   product: IProduct | undefined
-  stripeProduct?: Stripe.Product
+  stripeProduct?: Stripe.Product | undefined
   succeeded: boolean
-  referer: string | null
+  referer: string
 }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -83,7 +83,7 @@ const ProductPage = ({
       elements,
       clientSecret: paymentIntent.client_secret as string,
       confirmParams: {
-        return_url: referer ?? 'https://lucid.haus',
+        return_url: referer,
       },
     })
 

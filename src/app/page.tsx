@@ -1,14 +1,16 @@
 import ProductPage from '@/modules/store/components/ProductPage'
-import { fetchProduct } from '@/modules/store/utils/fetchProduct'
+import { fetchProduct, ProductResponse } from '@/modules/store/utils/fetchProduct'
 import { fetchStripeProduct } from '@/stripe/utils/fetchStripeProduct'
 import { CheckoutForm } from '@/modules/store/components/CheckoutForm'
-import { headers } from 'next/headers'
+import config from '@/constants/config'
+
+async function getProduct(): Promise<ProductResponse> {
+  return await fetchProduct('lucidhaus-garden-session-vi', config.BASE_URL as string)
+}
 
 export default async function Page(context: any) {
-  const headersList = headers()
-  const referer = headersList.get('referer')
-  const product = await fetchProduct('lucidhaus-garden-session-vi', referer)
-  const stripeProduct = await fetchStripeProduct(product?.product)
+  const product = await getProduct()
+  const stripeProduct = await fetchStripeProduct(product.product)
 
   return (
     <>
@@ -17,7 +19,7 @@ export default async function Page(context: any) {
           product={product?.product}
           stripeProduct={stripeProduct}
           succeeded={context?.searchParams?.redirect_status === 'succeeded'}
-          referer={referer}
+          referer={config.BASE_URL as string}
         />
       </CheckoutForm>
     </>
