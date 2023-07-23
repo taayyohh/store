@@ -7,6 +7,7 @@ import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import Stripe from 'stripe'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import * as Yup from 'yup'
+import { motion } from 'framer-motion'
 
 const ProductPage = ({
   product,
@@ -36,6 +37,7 @@ const ProductPage = ({
     const { value } = e.target
     setDonationAmount(parseFloat(value))
   }
+  const [showForm, setShowForm] = useState(false)
 
   if (!stripe || !elements) return null
 
@@ -128,45 +130,72 @@ const ProductPage = ({
         </div>
       </div>
 
-      <div className={'mt-12'}>
-        ♥️ This event is free and donations are highly encouraged ♥️
-      </div>
       {(!succeeded && (
-        <form
-          onSubmit={handleSubmit}
-          className={'pt-8 mt-8 border-t w-full sm:w-[600px] mb-12 border p-4 sm:p-12'}
-        >
-          <div className="flex flex-col space-y-1 pb-4">
-            <label htmlFor="donationAmount" className="text-xs font-medium uppercase">
-              Donation Amount (USD)
-            </label>
-            <input
-              type="number"
-              id="donationAmount"
-              name="donationAmount"
-              value={donationAmount}
-              onChange={handleChangeDonation}
-              className={`p-3 border-b bg-transparent focus:outline-none text-5xl appearance-none ${
-                donationError ? 'border-red-500' : 'border-gray-300'
-              }`}
-              placeholder={'$'}
-            />
-            {donationError && (
-              <span className="text-red-500 text-sm">{donationError}</span>
-            )}
+        <>
+          <div className={'mt-12'}>
+            ♥️ This event is free and donations are highly encouraged ♥️
           </div>
-
-          <PaymentElement />
-          <button
-            type="submit"
-            disabled={!stripe || !elements}
-            className={
-              'h-12 w-full border mt-8 rounded-xl hover:bg-white hover:text-black transition-colors'
-            }
+          <motion.button
+            onClick={() => setShowForm((flag) => !flag)}
+            initial={{ height: '6rem' }}
+            animate={{ height: !showForm ? '6rem' : 0, overflow: 'hidden' }}
+            transition={{ duration: 0.2 }}
+            className={`${
+              showForm ? 'mb-0 h-0' : 'h-24 mb-12'
+            } text-3xl w-full border mt-8 rounded-xl hover:bg-white hover:text-black transition-colors max-w-[600px]`}
           >
-            Donate
-          </button>
-        </form>
+            Donate {'<3'}
+          </motion.button>
+
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: showForm ? 'auto' : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {showForm && (
+              <form
+                onSubmit={handleSubmit}
+                className={
+                  'pt-8 mt-8 border-t w-full sm:w-[600px] mb-12 border p-4 sm:p-12'
+                }
+              >
+                <div className="flex flex-col space-y-1 pb-4">
+                  <label
+                    htmlFor="donationAmount"
+                    className="text-xs font-medium uppercase"
+                  >
+                    Donation Amount (USD)
+                  </label>
+                  <input
+                    type="number"
+                    id="donationAmount"
+                    name="donationAmount"
+                    value={donationAmount}
+                    onChange={handleChangeDonation}
+                    className={`p-3 border-b bg-transparent focus:outline-none text-5xl appearance-none ${
+                      donationError ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder={'$'}
+                  />
+                  {donationError && (
+                    <span className="text-red-500 text-sm">{donationError}</span>
+                  )}
+                </div>
+
+                <PaymentElement />
+                <button
+                  type="submit"
+                  disabled={!stripe || !elements}
+                  className={
+                    'h-12 w-full border mt-8 rounded-xl hover:bg-white hover:text-black transition-colors'
+                  }
+                >
+                  Submit Payment
+                </button>
+              </form>
+            )}
+          </motion.div>
+        </>
       )) || (
         <div className={'p-40 max-w-3xl text-center'}>
           <h2 className={'text-4xl'}>Thank you for donating!</h2> Be sure to follow{' '}
