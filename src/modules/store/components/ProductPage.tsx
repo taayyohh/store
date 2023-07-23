@@ -151,6 +151,7 @@ const ProductPage = ({
             initial={{ height: 0 }}
             animate={{ height: showForm ? 'auto' : 0 }}
             transition={{ duration: 0.2 }}
+            className={'w-full'}
           >
             {showForm && (
               <form
