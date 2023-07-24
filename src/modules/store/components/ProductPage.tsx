@@ -157,7 +157,7 @@ const ProductPage = ({
               <form
                 onSubmit={handleSubmit}
                 className={
-                  'pt-8 mt-8 border-t w-full sm:w-[600px] mb-12 border p-4 sm:p-12'
+                  'pt-8 mt-8 border-t w-full sm:w-[600px] mb-12 border p-4 sm:p-12 mx-auto'
                 }
               >
                 <div className="flex flex-col space-y-1 pb-4">
